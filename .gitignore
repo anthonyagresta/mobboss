@@ -25,3 +25,10 @@ out/
 *.swp
 *.bak
 
+# Gradle is cool though
+.gradle/
+.gradletasknamecache
+bin/
+build/
+target/
+

@@ -1,4 +1,4 @@
-package sample;
+package com.mycase.mobboss;
 
-public class Controller {
+public class MobBossController {
 }

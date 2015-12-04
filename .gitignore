@@ -1,6 +1,22 @@
+# Windows sucks
+Thumbs.db
+desktop.ini
+
+# OSX sucks
 .DS_Store
 .Trashes
-.MACOSX
+.Spotlight-V100
+__MACOSX
+
+# Linux sucks
+lost+found
+
+# IDEs suck
 out/
 .idea/workspace.xml
+
+# Editors suck
+*~
+*.swp
+*.bak
 

@@ -1,8 +1,12 @@
 package com.mycase.mobboss;
 
-public class MobBossControllerTest {
-    public static void someTest() {
+        import static org.testng.Assert;
+        import static org.testng.annotations.*;
 
+public class MobBossControllerTest {
+    @Test(groups = {"unit"})
+    public static void someTest() {
+        org.testng.Assert.assertTrue(true);
     }
 
 }

@@ -1,5 +1,9 @@
 package com.mycase.mobboss;
 
+import javafx.scene.media.AudioClip;
+
+import java.net.URL;
+
 public class MobBossController {
     public static MobBossConfig config;
     public static CountdownTimerController timerController;
@@ -17,7 +21,14 @@ public class MobBossController {
     }
 
     public void ring() {
+        plonkNoise();
         System.out.println("\n**** RING RING! ****");
         System.out.flush();
+    }
+
+    public void plonkNoise() {
+        URL u = getClass().getResource("/sounds/bleep.wav");
+        AudioClip plonkNoise = new AudioClip(u.toString());
+        plonkNoise.play();
     }
 }

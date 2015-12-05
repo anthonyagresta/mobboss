@@ -19,7 +19,7 @@ public class MobBossCLI {
             addAMobber();
         }
         System.out.println("Starting Mobbing!");
-        int times = 4;
+        int times = controller.queue.size() + 3;
         do {
             controller.startTimer();
             synchronized(MobBossController.timerController) {

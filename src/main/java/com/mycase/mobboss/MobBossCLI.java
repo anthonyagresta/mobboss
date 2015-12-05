@@ -12,7 +12,10 @@ public class MobBossCLI {
         console = new Scanner(System.in);
 
         System.out.println("MobBoss Timer!\n");
-        while(controller.queue.size() < 3) {
+        askForTurnLength();
+
+        int howMany = askForHowMany();
+        while(controller.queue.size() < howMany) {
             addAMobber();
         }
         System.out.println("Starting Mobbing!");
@@ -39,5 +42,16 @@ public class MobBossCLI {
         System.out.print("Enter Mobber Name> ");
         String mobberName = console.next();
         controller.queue.addToQueue(new MobParticipant(mobberName));
+    }
+
+    public static void askForTurnLength() {
+        System.out.print("Enter turn length in seconds>");
+        int turnLength = console.nextInt();
+        controller.config.setTurnLengthSeconds(turnLength);
+    }
+
+    public static int askForHowMany() {
+        System.out.print("Enter number of mobbers>");
+        return console.nextInt();
     }
 }

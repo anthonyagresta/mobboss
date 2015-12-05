@@ -2,18 +2,20 @@ package com.mycase.mobboss;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CountDownLatch;
 
 public class CountdownTimerController {
     private MobBossController controller;
     private int initialSeconds;
     private int timeLeft;
     private CountdownTimer timer;
-
+    private CountDownLatch latch;
 
     public CountdownTimerController(MobBossController mbc, int initialSeconds) {
         controller = mbc;
         this.initialSeconds = initialSeconds;
         timeLeft = initialSeconds;
+        latch = new CountDownLatch(initialSeconds);
     }
     public int getTimeLeft() {
         return timeLeft;
@@ -28,6 +30,7 @@ public class CountdownTimerController {
 
     public void start() {
         timer = new CountdownTimer(this, initialSeconds);
+        latch = new CountDownLatch(initialSeconds);
         timer.start();
     }
 
@@ -40,6 +43,7 @@ public class CountdownTimerController {
             timeLeft = initialSeconds;
         }
         timer = new CountdownTimer(this, timeLeft);
+        latch = new CountDownLatch(timeLeft);
         timer.start();
     }
 
@@ -51,15 +55,24 @@ public class CountdownTimerController {
 
     public void tick() {
         timeLeft--;
-        System.out.printf("Tick! %d seconds left...\n", timeLeft);
+        latch.countDown();
+        System.out.printf("\rTick! %s left...   ", getTimeString());
         if (timeLeft <= 0) {
             ring();
         }
     }
 
     public String getTimeString() {
-        // return timeLeft as a friendly mm:ss time string
-        return "";
+        int minutes = timeLeft / 60;
+        int seconds = timeLeft;
+        if(minutes > 0) {
+            seconds -= minutes * 60;
+        }
+        return String.format("%02d:%02d", minutes, seconds);
+    }
+
+    public void await() throws InterruptedException {
+        latch.await();
     }
 
     private class CountdownTimer extends Timer {

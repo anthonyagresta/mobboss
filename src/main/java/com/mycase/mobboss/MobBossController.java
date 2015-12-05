@@ -1,7 +1,5 @@
 package com.mycase.mobboss;
 
-import java.util.Properties;
-
 public class MobBossController {
     public static MobBossConfig config;
     public static CountdownTimerController timerController;
@@ -9,15 +7,17 @@ public class MobBossController {
 
     public MobBossController() {
         config = new MobBossConfig();
+        // TODO: load/save config
         queue = new MobQueue();
     }
 
     public void startTimer() {
-        timerController = new CountdownTimerController(this, config.getTurnLengthMinutes() * 60);
+        timerController = new CountdownTimerController(this, config.getTurnLengthSeconds());
         timerController.start();
     }
 
     public void ring() {
-        System.out.println("**** RING RING! ****");
+        System.out.println("\n**** RING RING! ****");
+        System.out.flush();
     }
 }

@@ -8,8 +8,9 @@ import java.util.Properties;
 
 public class MobBossConfig {
     public static String CONFIG_FILENAME = "~/.mobboss";
+    public static int DEFAULT_TURN_LENGTH = 300;
     private ArrayList<MobParticipant> mobbers;
-    private int turnLengthMinutes;
+    private int turnLengthSeconds;
 
     public ArrayList<MobParticipant> getMobbers() {
         return mobbers;
@@ -19,18 +20,18 @@ public class MobBossConfig {
         this.mobbers = mobbers;
     }
 
-    public int getTurnLengthMinutes() {
-        return turnLengthMinutes;
+    public int getTurnLengthSeconds() {
+        return turnLengthSeconds;
     }
 
-    public void setTurnLengthMinutes(int turnLengthMinutes) {
-        this.turnLengthMinutes = turnLengthMinutes;
+    public void setTurnLengthSeconds(int turnLengthSeconds) {
+        this.turnLengthSeconds = turnLengthSeconds;
     }
 
     public MobBossConfig() {
         // Init defaults
         mobbers = new ArrayList<MobParticipant>();
-        turnLengthMinutes = 5;
+        turnLengthSeconds = DEFAULT_TURN_LENGTH;
     }
 
     public void saveToDefault() {
@@ -61,7 +62,7 @@ public class MobBossConfig {
 
     private Properties toProp() {
         Properties retval = new Properties();
-        retval.setProperty("turnLengthMinutes", Integer.toString(turnLengthMinutes));
+        retval.setProperty("turnLengthSeconds", Integer.toString(turnLengthSeconds));
         StringBuilder sb = new StringBuilder();
         boolean first = true;
         for(MobParticipant m: this.mobbers) {
@@ -83,7 +84,7 @@ public class MobBossConfig {
             newlist.add(new MobParticipant(name));
         }
         retval.setMobbers(newlist);
-        retval.setTurnLengthMinutes(Integer.parseInt(prop.getProperty("turnLengthMinutes")));
+        retval.setTurnLengthSeconds(Integer.parseInt(prop.getProperty("turnLengthSeconds")));
 
         return retval;
     }

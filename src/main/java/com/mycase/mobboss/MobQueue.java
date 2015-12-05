@@ -15,7 +15,11 @@ public class MobQueue {
     }
 
     public int addToQueue(MobParticipant m) {
-        theQueue.push(m);
+        theQueue.add(m);
+        return theQueue.size();
+    }
+
+    public int size() {
         return theQueue.size();
     }
 
@@ -39,8 +43,37 @@ public class MobQueue {
         return theQueue.peek();
     }
 
+    public MobParticipant getOnDeck() {
+        if(theQueue.size() > 1) {
+            return theQueue.get(1);
+        } else if( theQueue.size() == 1) {
+            return theQueue.peek();
+        } else {
+            return null;
+        }
+    }
+
     public void advance() {
         theQueue.add(theQueue.pop());
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        boolean first = true;
+        for(MobParticipant mob: theQueue) {
+            if(first) {
+                first = false;
+            } else {
+                sb.append(", ");
+            }
+            sb.append("'");
+            sb.append(mob.getName());
+            sb.append("'");
+        }
+        sb.append("]");
+        return sb.toString();
     }
 
 }
